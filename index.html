@@ -3,335 +3,637 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সৃষ্টির সেবা ফাউন্ডেশন | Shristir Sheba Foundation</title>
+    <title>সৃষ্টির সেবা ফাউন্ডেশন</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CSS Variables & Global Styles --- */
+        /* --- CSS Variables --- */
         :root {
             --primary: #0066cc;
             --secondary: #28a745;
             --dark: #2d3436;
             --light: #f8f9fa;
-            --glass: rgba(255, 255, 255, 0.95);
+            --white: #ffffff;
             --shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Hind Siliguri', sans-serif; scroll-behavior: smooth; }
-        
         body { background-color: var(--light); color: var(--dark); overflow-x: hidden; }
 
-        /* --- Navbar --- */
+        /* --- UI Elements --- */
         header {
-            background: var(--glass);
+            background: rgba(255, 255, 255, 0.95);
             padding: 15px 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
         .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .logo img { height: 40px; } /* Dynamic Logo */
+
         nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
-        nav a { text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; cursor: pointer; }
+        nav a { text-decoration: none; color: var(--dark); font-weight: 500; cursor: pointer; transition: 0.3s; }
         nav a:hover { color: var(--primary); }
 
-        .btn-donate-nav {
-            background: var(--secondary); color: white; padding: 8px 20px; border-radius: 30px; font-weight: 600; transition: 0.3s;
+        .btn-donate {
+            background: var(--secondary); color: white; padding: 8px 20px;
+            border-radius: 30px; font-weight: 600; cursor: pointer; border: none;
         }
-        .btn-donate-nav:hover { transform: scale(1.05); }
 
         /* --- Hero Section --- */
         .hero {
             height: 90vh;
-            background: linear-gradient(rgba(0, 30, 60, 0.7), rgba(0, 30, 60, 0.7)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
             background-size: cover; background-position: center;
-            display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; margin-top: 60px;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: white; margin-top: 60px; position: relative;
         }
-        .hero h1 { font-size: 3rem; margin-bottom: 20px; font-weight: 700; }
-        .hero p { font-size: 1.1rem; margin-bottom: 30px; max-width: 600px; margin: auto; opacity: 0.9; }
+        .hero::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); }
+        .hero-content { position: relative; z-index: 1; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; }
 
-        .btn-donate-hero {
-            background: linear-gradient(45deg, var(--secondary), #20bf6b);
-            color: white; padding: 15px 40px; font-size: 1.2rem; border: none; border-radius: 50px; cursor: pointer; font-weight: 700;
-            margin-top: 20px; box-shadow: 0 10px 20px rgba(40, 167, 69, 0.4); animation: pulse 2s infinite;
+        /* --- Sections --- */
+        .section { padding: 60px 10%; }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 40px; color: var(--primary); }
+
+        /* --- Cards --- */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+
+        /* --- Member Card --- */
+        .member-card { text-align: center; background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow); }
+        .member-card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 10px; }
+
+        /* --- User Post Form --- */
+        .post-form-area { background: white; padding: 30px; border-radius: 15px; max-width: 600px; margin: 0 auto; box-shadow: var(--shadow); }
+        input, textarea, select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; }
+
+        /* --- Admin Modal (Full Screen) --- */
+        #adminPanel {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #f4f6f9; z-index: 2000; overflow-y: auto;
         }
-
-        /* --- Content Sections --- */
-        .section { padding: 80px 10%; }
-        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 50px; color: var(--primary); font-weight: 700; }
+        .admin-header { background: #343a40; color: white; padding: 15px 5%; display: flex; justify-content: space-between; }
+        .admin-container { padding: 20px 5%; max-width: 1200px; margin: 0 auto; }
+        .admin-tab { margin-bottom: 20px; }
+        .admin-tab button { padding: 10px 20px; cursor: pointer; border: none; background: #ddd; margin-right: 5px; }
+        .admin-tab button.active { background: var(--primary); color: white; }
+        .tab-content { display: none; background: white; padding: 20px; border-radius: 10px; }
+        .tab-content.active { display: block; }
         
-        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .card { background: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow); border-bottom: 5px solid var(--primary); }
-        .card i { font-size: 2.5rem; color: var(--secondary); margin-bottom: 20px; }
-
-        /* --- Members Grid --- */
-        .members-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .member-card { background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: var(--shadow); transition: 0.3s; position: relative; }
-        .member-img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--primary); object-fit: cover; margin-bottom: 15px; }
-        .member-name { font-size: 1.2rem; font-weight: 700; }
-        .member-role { color: var(--secondary); font-weight: 600; margin-bottom: 10px; }
-        .member-contact { background: #f1f2f6; padding: 5px 10px; border-radius: 20px; display: inline-block; font-size: 0.9rem; }
-
-        /* --- Footer --- */
-        footer { background: #1a1a1a; color: white; text-align: center; padding: 30px; margin-top: 50px; }
-
-        /* --- MODAL STYLES (Common for Donate & Admin) --- */
+        .editable-border { border: 2px dashed red; padding: 5px; } /* Visual cue for editing */
+        
+        /* --- Payment Popup --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); display: none; justify-content: center;
-            align-items: center; z-index: 2000; backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.7); display: none; justify-content: center;
+            align-items: center; z-index: 3000;
         }
-        .modal-box {
-            background: white; width: 90%; max-width: 500px; padding: 30px;
-            border-radius: 15px; text-align: center; position: relative;
-            max-height: 90vh; overflow-y: auto;
-        }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888; }
+        .pay-box { background: white; width: 90%; max-width: 400px; padding: 30px; border-radius: 15px; text-align: center; position: relative; }
+        .copy-box { background: #eee; padding: 10px; margin: 10px 0; border-radius: 5px; cursor: pointer; font-weight: bold; border: 1px dashed #999; }
         
-        /* Donate Modal Specifics */
-        .pay-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .pay-btn {
-            padding: 15px; border: 2px solid #eee; border-radius: 10px; cursor: pointer;
-            background: white; display: flex; flex-direction: column; align-items: center; transition: 0.2s;
-        }
-        .pay-btn:active { transform: scale(0.95); background: #e8f5e9; border-color: var(--secondary); }
-        .pay-btn img { height: 40px; }
+        /* Visitor Counter */
+        .visitor-counter { font-size: 0.8rem; background: #333; color: white; padding: 5px 10px; border-radius: 20px; }
 
-        /* Admin Modal Specifics */
-        .admin-input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
-        .btn-admin { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
-        .btn-delete { background: #ff4757; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        /* Button Styles */
+        .btn-primary { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        .btn-danger { background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .btn-success { background: var(--secondary); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
 
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(40, 167, 69, 0); } 100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); } }
-
-        @media (max-width: 768px) { .hero h1 { font-size: 2.2rem; } nav ul { display: none; } }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo"><i class="fas fa-hands-holding-child"></i> সৃষ্টির সেবা</div>
+        <div class="logo" id="siteLogo">
+            <i class="fas fa-hands-holding-child"></i> <span>সৃষ্টির সেবা ফাউন্ডেশন</span>
+        </div>
         <nav>
             <ul>
                 <li><a href="#home">হোম</a></li>
-                <li><a href="#members">সদস্যবৃন্দ</a></li>
-                <li><a onclick="openAdminModal()">এডমিন</a></li> <li><a class="btn-donate-nav" onclick="openDonateModal()">দান করুন</a></li>
+                <li><a href="#activities">কার্যক্রম</a></li>
+                <li><a href="#userposts">মতামত</a></li>
+                <li><span class="visitor-counter" id="viewCountDisplay">👁 ভিজিট: 0</span></li>
+                <li><a onclick="openAdminLogin()" style="color: red;"><i class="fas fa-user-shield"></i> এডমিন</a></li>
+                <li><button class="btn-donate" onclick="openDonateModal()">দান করুন</button></li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero" id="home">
+    <section class="hero" id="heroSection">
         <div class="hero-content">
-            <h1>মানুষের সেবাই আমাদের ব্রত</h1>
-            <p>আপনার একটি ছোট অনুদান একজন অসহায় মানুষের জীবনে হাসি ফোটাতে পারে।</p>
-            <button class="btn-donate-hero" onclick="openDonateModal()">
-                <i class="fas fa-heart"></i> দান করতে ক্লিক করুন
+            <h1 id="editableHeroTitle">মানুষের সেবাই আমাদের ব্রত</h1>
+            <p id="editableHeroText">আপনার একটি ছোট অনুদান একজন অসহায় মানুষের জীবনে হাসি ফোটাতে পারে।</p>
+            <br>
+            <button class="btn-donate" style="font-size: 1.2rem; padding: 15px 30px;" onclick="openDonateModal()">
+                এখনই দান করুন
             </button>
         </div>
     </section>
 
-    <section class="section" id="about">
+    <section class="section" id="activities">
         <h2 class="section-title">আমাদের কার্যক্রম</h2>
-        <div class="about-grid">
-            <div class="card"><i class="fas fa-utensils"></i><h3>খাদ্য বিতরণ</h3><p>দরিদ্রদের মাঝে খাবার বিতরণ।</p></div>
-            <div class="card"><i class="fas fa-book-reader"></i><h3>শিক্ষা</h3><p>দরিদ্র শিক্ষার্থীদের শিক্ষা সামগ্রী প্রদান।</p></div>
-            <div class="card"><i class="fas fa-clinic-medical"></i><h3>চিকিৎসা</h3><p>বিনা মূল্যে চিকিৎসা সেবা।</p></div>
-        </div>
-    </section>
-
-    <section class="section" id="members" style="background: #eef2f3;">
-        <h2 class="section-title">ফাউন্ডার এবং সদস্যবৃন্দ</h2>
-        <div class="members-grid" id="publicMembersList">
+        <div class="grid-container" id="activityList">
             </div>
     </section>
 
-    <section class="section">
-        <h2 class="section-title">যোগাযোগ</h2>
-        <div style="text-align: center;">
-            <p>ইমেইল: info@shristirsheba.org | ফোন: +880 1XXX-XXXXXX</p>
-        </div>
+    <section class="section" style="background: #eef2f3;">
+        <h2 class="section-title">ফাউন্ডার ও মেম্বার</h2>
+        <div class="grid-container" id="membersList">
+            </div>
     </section>
 
-    <footer><p>&copy; ২০২৬ শৃষ্টির সেবা ফাউন্ডেশন</p></footer>
+    <section class="section" id="userposts">
+        <h2 class="section-title">সবার কথা (মতামত)</h2>
+        
+        <div class="post-form-area">
+            <h3>আপনার মতামত লিখুন</h3>
+            <input type="text" id="userPostName" placeholder="আপনার নাম">
+            <textarea id="userPostContent" rows="3" placeholder="কি বলতে চান?"></textarea>
+            <button class="btn-primary" onclick="submitUserPost()">পোস্ট করুন</button>
+            <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">* এডমিন এপ্রুভ করলে পোস্টটি দেখা যাবে।</p>
+        </div>
 
-    <div class="modal-overlay" id="donateModal">
-        <div class="modal-box">
-            <span class="close-btn" onclick="closeDonateModal()">&times;</span>
-            <h2 style="color: var(--secondary);">সাহায্য পাঠান</h2>
-            <p style="margin-bottom: 15px; color: #666;">নিচের যে কোনো আইকনে ক্লিক করলে নাম্বার কপি হয়ে যাবে</p>
-            
-            <div class="pay-options">
-                <button class="pay-btn" onclick="copyNumber('017XXXXXXXX', 'বিকাশ')">
-                    <img src="https://freelogopng.com/images/all_img/1656235199bkash-logo-transparent.png" alt="Bkash">
-                    <span>বিকাশ (পার্সোনাল)</span>
-                </button>
-                <button class="pay-btn" onclick="copyNumber('018XXXXXXXX', 'নগদ')">
-                    <img src="https://freelogopng.com/images/all_img/1679248787nagad-logo.png" alt="Nagad">
-                    <span>নগদ (পার্সোনাল)</span>
-                </button>
+        <div style="margin-top: 30px;" class="grid-container" id="publicPostList">
             </div>
-            <p id="copyMsg" style="margin-top: 15px; color: var(--secondary); font-weight: bold; display:none;">নাম্বার কপি হয়েছে!</p>
+    </section>
+
+    <footer style="background:#222; color:white; padding:30px; text-align:center;">
+        <p>&copy; ২০২৬ সৃষ্টির সেবা ফাউন্ডেশন</p>
+    </footer>
+
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="pay-box">
+            <span onclick="closeModal('loginModal')" style="float:right; cursor:pointer; font-size:20px;">&times;</span>
+            <h2>এডমিন লগইন</h2>
+            <input type="text" id="adminUser" placeholder="ইউজার নেম">
+            <input type="password" id="adminPass" placeholder="পাসওয়ার্ড">
+            <button class="btn-primary" onclick="checkLogin()">লগইন</button>
         </div>
     </div>
 
-    <div class="modal-overlay" id="adminModal">
-        <div class="modal-box" style="max-width: 600px;">
-            <span class="close-btn" onclick="closeAdminModal()">&times;</span>
+    <div class="modal-overlay" id="donateModal">
+        <div class="pay-box">
+            <span onclick="closeModal('donateModal')" style="float:right; cursor:pointer; font-size:20px;">&times;</span>
+            <h2 style="color: var(--primary);">সাহায্য পাঠান</h2>
+            <p>পেমেন্ট মেথড সিলেক্ট করুন</p>
+            <select id="paymentMethod" onchange="updatePaymentNumber()" style="margin: 15px 0;">
+                <option value="">মেথড বাছাই করুন</option>
+                <option value="bkash">বিকাশ (Send Money)</option>
+                <option value="nagad">নগদ (Send Money)</option>
+                <option value="rocket">রকেট</option>
+            </select>
             
-            <div id="admin-login-view">
-                <h2 style="color: var(--primary); margin-bottom: 20px;">এডমিন লগইন</h2>
-                <input type="text" id="adminUser" class="admin-input" placeholder="ইউজারনেম (mamun4798)">
-                <input type="password" id="adminPass" class="admin-input" placeholder="পাসওয়ার্ড (244505@#)">
-                <button class="btn-admin" onclick="verifyAdmin()">লগইন</button>
+            <div id="paymentDetails" style="display:none;">
+                <p>নিচের নাম্বারে টাকা পাঠান (কপি করতে ক্লিক করুন):</p>
+                <div class="copy-box" onclick="copyNumber()" id="displayNumber">Loading...</div>
+                <span id="copyMsg" style="font-size:0.8rem; color:green; display:none;">কপি হয়েছে!</span>
+                
+                <input type="text" placeholder="Transaction ID দিন" style="margin-top:10px;">
+                <button class="btn-primary" onclick="alert('ধন্যবাদ! আমরা শীঘ্রই কনফার্ম করব।')">সাবমিট</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminPanel">
+        <div class="admin-header">
+            <h2>⚙️ এডমিন ড্যাশবোর্ড</h2>
+            <div>
+                <button class="btn-success" onclick="togglePageEditMode()">📝 পেজ এডিট মোড (অন/অফ)</button>
+                <button class="btn-danger" onclick="logout()">লগআউট</button>
+                <button class="btn-danger" onclick="closeAdminPanel()">প্যানেল বন্ধ করুন</button>
+            </div>
+        </div>
+
+        <div class="admin-container">
+            <div class="admin-tab">
+                <button class="active" onclick="showTab('tabSettings')">সেটিংস</button>
+                <button onclick="showTab('tabPosts')">কার্যক্রম পোস্ট</button>
+                <button onclick="showTab('tabMembers')">মেম্বার ম্যানেজ</button>
+                <button onclick="showTab('tabUserPosts')">পেন্ডিং পোস্ট</button>
+                <button onclick="showTab('tabPayment')">পেমেন্ট সেটিং</button>
             </div>
 
-            <div id="admin-dashboard-view" style="display: none;">
-                <h2 style="color: var(--primary); margin-bottom: 15px;">এডমিন ড্যাশবোর্ড</h2>
+            <div id="tabSettings" class="tab-content active">
+                <h3>সাধারণ সেটিংস</h3>
+                <label>লোগো পরিবর্তন (URL বা লোকাল):</label>
+                <input type="file" id="logoUpload" onchange="changeLogo(this)">
                 
-                <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-                    <h4 style="margin-bottom: 10px;">নতুন মেম্বার যুক্ত করুন</h4>
-                    <input type="text" id="mName" class="admin-input" placeholder="নাম">
-                    <input type="text" id="mRole" class="admin-input" placeholder="পদবী">
-                    <input type="text" id="mContact" class="admin-input" placeholder="মোবাইল">
-                    <input type="file" id="mPhoto" class="admin-input" accept="image/*">
-                    <button class="btn-admin" onclick="addMember()">সেভ করুন</button>
+                <label>ব্যাকগ্রাউন্ড ছবি পরিবর্তন:</label>
+                <input type="file" id="bgUpload" onchange="changeHeroBg(this)">
+
+                <h3>সিকিউরিটি</h3>
+                <input type="text" id="newAdminUser" placeholder="নতুন ইউজারনেম">
+                <input type="text" id="newAdminPass" placeholder="নতুন পাসওয়ার্ড">
+                <button class="btn-primary" onclick="updateCredentials()">পাসওয়ার্ড পরিবর্তন করুন</button>
+                
+                <hr style="margin:20px 0;">
+                <input type="text" id="createNewAdminName" placeholder="আরেকজন এডমিনের নাম">
+                <input type="text" id="createNewAdminPass" placeholder="তার পাসওয়ার্ড">
+                <button class="btn-success" onclick="addNewAdmin()">নতুন এডমিন যুক্ত করুন</button>
+            </div>
+
+            <div id="tabPosts" class="tab-content">
+                <h3>নতুন কার্যক্রম পোস্ট করুন</h3>
+                <input type="text" id="postTitle" placeholder="শিরোনাম">
+                <textarea id="postDesc" placeholder="বিবরণ"></textarea>
+                <input type="file" id="postImg">
+                <button class="btn-primary" onclick="addActivity()">পোস্ট করুন</button>
+                
+                <div style="margin-top:20px;">
+                    <h4>পূর্বের পোস্টসমূহ (ডিলিট করতে পারেন)</h4>
+                    <div id="adminActivityList"></div>
                 </div>
+            </div>
 
-                <h4 style="margin-bottom: 10px;">মেম্বার তালিকা</h4>
-                <div id="adminMembersList" style="text-align: left; max-height: 200px; overflow-y: scroll;">
-                    </div>
+            <div id="tabMembers" class="tab-content">
+                <h3>মেম্বার যুক্ত করুন</h3>
+                <input type="text" id="mName" placeholder="নাম">
+                <input type="text" id="mRole" placeholder="পদবী">
+                <input type="text" id="mContact" placeholder="ফোন">
+                <input type="file" id="mPhoto">
+                <button class="btn-primary" onclick="addMember()">সেভ করুন</button>
+                <div id="adminMemberList" style="margin-top:20px;"></div>
+            </div>
 
-                <button class="btn-admin" style="background: #555; margin-top: 20px;" onclick="logoutAdmin()">লগআউট</button>
+            <div id="tabUserPosts" class="tab-content">
+                <h3>পেন্ডিং ইউজার পোস্ট (Approval)</h3>
+                <div id="pendingPostList"></div>
+            </div>
+
+            <div id="tabPayment" class="tab-content">
+                <h3>পেমেন্ট নাম্বার পরিবর্তন</h3>
+                <label>বিকাশ নাম্বার:</label>
+                <input type="text" id="setBkash">
+                <label>নগদ নাম্বার:</label>
+                <input type="text" id="setNagad">
+                <label>রকেট নাম্বার:</label>
+                <input type="text" id="setRocket">
+                <button class="btn-primary" onclick="savePaymentSettings()">সেভ করুন</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. DONATE LOGIC ---
-        function openDonateModal() { document.getElementById('donateModal').style.display = 'flex'; }
-        function closeDonateModal() { document.getElementById('donateModal').style.display = 'none'; document.getElementById('copyMsg').style.display='none'; }
+        // --- INITIALIZATION ---
+        // ডিফল্ট ডাটা সেটআপ (প্রথমবার রান করার জন্য)
+        const defaultData = {
+            config: {
+                username: "mamun4798",
+                password: "244505@#",
+                logo: "", // Default empty
+                heroBg: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+                payment: { bkash: "017XXXXXXXX", nagad: "018XXXXXXXX", rocket: "019XXXXXXXX" },
+                viewCount: 0,
+                admins: [] // For multiple admins
+            },
+            activities: [],
+            members: [],
+            userPosts: []
+        };
 
-        function copyNumber(number, method) {
-            navigator.clipboard.writeText(number);
-            const msg = document.getElementById('copyMsg');
-            msg.innerText = `${method} নাম্বার (${number}) কপি হয়েছে!`;
-            msg.style.display = 'block';
-            msg.style.color = '#28a745';
+        // লোকাল স্টোরেজ থেকে ডাটা লোড করা
+        function getDB() {
+            let db = localStorage.getItem('ssf_db');
+            if (!db) {
+                localStorage.setItem('ssf_db', JSON.stringify(defaultData));
+                return defaultData;
+            }
+            return JSON.parse(db);
         }
 
-        // --- 2. ADMIN LOGIC ---
-        function openAdminModal() { document.getElementById('adminModal').style.display = 'flex'; }
-        function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
+        function saveDB(data) {
+            localStorage.setItem('ssf_db', JSON.stringify(data));
+        }
 
-        // নির্দিষ্ট ক্রেডেনশিয়াল চেক
-        function verifyAdmin() {
-            const user = document.getElementById('adminUser').value;
-            const pass = document.getElementById('adminPass').value;
+        // --- PAGE LOAD EVENTS ---
+        document.addEventListener("DOMContentLoaded", () => {
+            let db = getDB();
+            
+            // 1. Visitor Count Increment
+            db.config.viewCount++;
+            saveDB(db);
+            document.getElementById('viewCountDisplay').innerText = `👁 ভিজিট: ${db.config.viewCount}`;
 
-            // আপনার দেওয়া ক্রেডেনশিয়াল
-            if (user === "mamun4798" && pass === "244505@#") {
-                document.getElementById('admin-login-view').style.display = "none";
-                document.getElementById('admin-dashboard-view').style.display = "block";
-                renderMembers(); // Load list
+            // 2. Load Styles & Content
+            if(db.config.heroBg) document.getElementById('heroSection').style.backgroundImage = `url('${db.config.heroBg}')`;
+            if(db.config.logo) document.querySelector('.logo').innerHTML = `<img src="${db.config.logo}"> সৃষ্টির সেবা ফাউন্ডেশন`;
+
+            // 3. Load Contents
+            renderActivities();
+            renderMembers();
+            renderPublicUserPosts();
+        });
+
+
+        // --- AUTH SYSTEM ---
+        function openAdminLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+        
+        function checkLogin() {
+            let u = document.getElementById('adminUser').value;
+            let p = document.getElementById('adminPass').value;
+            let db = getDB();
+
+            // Check Main Admin or Sub Admins
+            let isMain = (u === db.config.username && p === db.config.password);
+            let isSub = db.config.admins.some(a => a.user === u && a.pass === p);
+
+            if (isMain || isSub) {
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadAdminData(); // Load admin inputs
             } else {
-                alert("ভুল ইউজারনেম বা পাসওয়ার্ড!");
+                alert('ভুল ইউজারনেম বা পাসওয়ার্ড!');
             }
         }
 
-        function logoutAdmin() {
-            document.getElementById('admin-login-view').style.display = "block";
-            document.getElementById('admin-dashboard-view').style.display = "none";
-            document.getElementById('adminUser').value = "";
-            document.getElementById('adminPass').value = "";
+        function logout() {
+            document.getElementById('adminPanel').style.display = 'none';
+            disablePageEditMode(); // Edit mode off on logout
         }
 
-        // --- 3. MEMBER MANAGEMENT (LocalStorage) ---
-        document.addEventListener("DOMContentLoaded", renderMembers);
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'none';
+        }
 
+        // --- ADMIN: CREDENTIALS & SETTINGS ---
+        function updateCredentials() {
+            let u = document.getElementById('newAdminUser').value;
+            let p = document.getElementById('newAdminPass').value;
+            if(u && p) {
+                let db = getDB();
+                db.config.username = u;
+                db.config.password = p;
+                saveDB(db);
+                alert("পাসওয়ার্ড পরিবর্তন সফল হয়েছে!");
+            }
+        }
+
+        function addNewAdmin() {
+            let u = document.getElementById('createNewAdminName').value;
+            let p = document.getElementById('createNewAdminPass').value;
+            if(u && p) {
+                let db = getDB();
+                db.config.admins.push({user: u, pass: p});
+                saveDB(db);
+                alert("নতুন এডমিন যুক্ত হয়েছে!");
+            }
+        }
+
+        // --- ADMIN: PAGE EDITING (CMS) ---
+        let editMode = false;
+        function togglePageEditMode() {
+            editMode = !editMode;
+            const title = document.getElementById('editableHeroTitle');
+            const text = document.getElementById('editableHeroText');
+            
+            if (editMode) {
+                alert("এডিট মোড চালু হয়েছে। লেখার উপর ক্লিক করে পরিবর্তন করুন।");
+                title.contentEditable = "true";
+                text.contentEditable = "true";
+                title.classList.add('editable-border');
+                text.classList.add('editable-border');
+            } else {
+                title.contentEditable = "false";
+                text.contentEditable = "false";
+                title.classList.remove('editable-border');
+                text.classList.remove('editable-border');
+                // Save content logic could be added here to persistent storage
+            }
+        }
+        function disablePageEditMode() {
+            if(editMode) togglePageEditMode();
+        }
+
+        // --- ADMIN: LOGO & BG ---
+        function fileToBase64(file, callback) {
+            if(file.size > 500000) { alert("ছবি অনেক বড়! ৫০০KB এর নিচে দিন।"); return; }
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => callback(e.target.result);
+        }
+
+        function changeLogo(input) {
+            if(input.files[0]) {
+                fileToBase64(input.files[0], (base64) => {
+                    let db = getDB();
+                    db.config.logo = base64;
+                    saveDB(db);
+                    document.querySelector('.logo').innerHTML = `<img src="${base64}"> সৃষ্টির সেবা ফাউন্ডেশন`;
+                });
+            }
+        }
+
+        function changeHeroBg(input) {
+            if(input.files[0]) {
+                fileToBase64(input.files[0], (base64) => {
+                    let db = getDB();
+                    db.config.heroBg = base64;
+                    saveDB(db);
+                    document.getElementById('heroSection').style.backgroundImage = `url('${base64}')`;
+                });
+            }
+        }
+
+        // --- ADMIN: ACTIVITIES ---
+        function addActivity() {
+            const title = document.getElementById('postTitle').value;
+            const desc = document.getElementById('postDesc').value;
+            const file = document.getElementById('postImg').files[0];
+
+            if(!title || !file) { alert("টাইটেল এবং ছবি আবশ্যক"); return; }
+
+            fileToBase64(file, (imgData) => {
+                let db = getDB();
+                db.activities.unshift({ id: Date.now(), title, desc, img: imgData });
+                saveDB(db);
+                renderActivities();
+                loadAdminData(); // Refresh admin list
+                alert("পোস্ট করা হয়েছে!");
+            });
+        }
+
+        function renderActivities() {
+            let db = getDB();
+            let html = "";
+            db.activities.forEach(act => {
+                html += `
+                    <div class="card">
+                        <img src="${act.img}">
+                        <h3>${act.title}</h3>
+                        <p>${act.desc}</p>
+                    </div>
+                `;
+            });
+            document.getElementById('activityList').innerHTML = html;
+        }
+
+        // --- ADMIN: MEMBERS ---
         function addMember() {
             const name = document.getElementById('mName').value;
             const role = document.getElementById('mRole').value;
             const contact = document.getElementById('mContact').value;
-            const photoInput = document.getElementById('mPhoto');
+            const file = document.getElementById('mPhoto').files[0];
 
-            if (!name || !role) { alert("নাম ও পদবী দিতে হবে!"); return; }
+            if(!name) return;
 
-            const reader = new FileReader();
-            if (photoInput.files && photoInput.files[0]) {
-                if (photoInput.files[0].size > 500000) { alert("ছবির সাইজ ৫০০KB এর কম হতে হবে!"); return; }
-                reader.readAsDataURL(photoInput.files[0]);
-                reader.onload = function (e) { saveToStorage(name, role, contact, e.target.result); };
-            } else {
-                saveToStorage(name, role, contact, "https://cdn-icons-png.flaticon.com/512/3135/3135715.png");
-            }
-        }
-
-        function saveToStorage(name, role, contact, imageSrc) {
-            let members = JSON.parse(localStorage.getItem('ssf_members')) || [];
-            members.push({ id: Date.now(), name, role, contact, image: imageSrc });
-            
-            try {
-                localStorage.setItem('ssf_members', JSON.stringify(members));
-                alert("মেম্বার যুক্ত হয়েছে!");
-                // Clear inputs
-                document.getElementById('mName').value = "";
-                document.getElementById('mRole').value = "";
-                document.getElementById('mContact').value = "";
+            const processMember = (img) => {
+                let db = getDB();
+                db.members.push({ id: Date.now(), name, role, contact, img });
+                saveDB(db);
                 renderMembers();
-            } catch (e) { alert("মেমোরি ফুল! কিছু মেম্বার ডিলিট করুন।"); }
+                loadAdminData();
+                alert("মেম্বার যুক্ত হয়েছে!");
+            };
+
+            if(file) fileToBase64(file, processMember);
+            else processMember("https://cdn-icons-png.flaticon.com/512/3135/3135715.png");
         }
 
         function renderMembers() {
-            let members = JSON.parse(localStorage.getItem('ssf_members')) || [];
-            const publicList = document.getElementById('publicMembersList');
-            const adminList = document.getElementById('adminMembersList');
-            
-            publicList.innerHTML = "";
-            adminList.innerHTML = "";
-
-            if (members.length === 0) publicList.innerHTML = "<p>কোন সদস্য নেই।</p>";
-
-            members.forEach(m => {
-                // Public View
-                publicList.innerHTML += `
+            let db = getDB();
+            let html = "";
+            db.members.forEach(m => {
+                html += `
                     <div class="member-card">
-                        <img src="${m.image}" class="member-img">
-                        <div class="member-name">${m.name}</div>
-                        <div class="member-role">${m.role}</div>
-                        <div class="member-contact">📞 ${m.contact}</div>
-                    </div>`;
-
-                // Admin View (Mini List)
-                adminList.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:white; padding:10px; margin-bottom:10px; border-bottom:1px solid #ddd;">
-                        <div><strong>${m.name}</strong> - ${m.role}</div>
-                        <button onclick="deleteMember(${m.id})" style="background:red; color:white; border:none; padding:5px; border-radius:3px; cursor:pointer;">X</button>
-                    </div>`;
+                        <img src="${m.img}">
+                        <h3>${m.name}</h3>
+                        <p>${m.role}</p>
+                        <small>${m.contact}</small>
+                    </div>
+                `;
             });
+            document.getElementById('membersList').innerHTML = html;
         }
 
-        function deleteMember(id) {
-            if(confirm("ডিলিট করবেন?")) {
-                let members = JSON.parse(localStorage.getItem('ssf_members')) || [];
-                members = members.filter(m => m.id !== id);
-                localStorage.setItem('ssf_members', JSON.stringify(members));
-                renderMembers();
+        // --- USER POSTS & MODERATION ---
+        function submitUserPost() {
+            let name = document.getElementById('userPostName').value;
+            let content = document.getElementById('userPostContent').value;
+            if(!name || !content) { alert("নাম এবং লেখা দিন"); return; }
+
+            let db = getDB();
+            db.userPosts.push({ id: Date.now(), name, content, status: 'pending' });
+            saveDB(db);
+            alert("আপনার মতামত জমা হয়েছে। এডমিন এপ্রুভ করলে দেখা যাবে।");
+            document.getElementById('userPostContent').value = "";
+        }
+
+        function renderPublicUserPosts() {
+            let db = getDB();
+            let html = "";
+            db.userPosts.filter(p => p.status === 'approved').forEach(p => {
+                html += `
+                    <div class="card" style="text-align:left;">
+                        <h4>${p.name}</h4>
+                        <p>${p.content}</p>
+                    </div>
+                `;
+            });
+            document.getElementById('publicPostList').innerHTML = html;
+        }
+
+        function approvePost(id) {
+            let db = getDB();
+            let post = db.userPosts.find(p => p.id === id);
+            if(post) post.status = 'approved';
+            saveDB(db);
+            loadAdminData();
+            renderPublicUserPosts();
+        }
+
+        function deletePost(id) {
+            let db = getDB();
+            db.userPosts = db.userPosts.filter(p => p.id !== id);
+            saveDB(db);
+            loadAdminData();
+            renderPublicUserPosts();
+        }
+
+        // --- PAYMENT SYSTEM ---
+        function openDonateModal() { document.getElementById('donateModal').style.display = 'flex'; }
+        
+        function updatePaymentNumber() {
+            let method = document.getElementById('paymentMethod').value;
+            let details = document.getElementById('paymentDetails');
+            let numDisplay = document.getElementById('displayNumber');
+            let db = getDB();
+
+            if(method) {
+                details.style.display = 'block';
+                numDisplay.innerText = db.config.payment[method] || "নাম্বার সেট করা নেই";
+            } else {
+                details.style.display = 'none';
             }
         }
 
-        // Close modal on outside click
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('donateModal')) closeDonateModal();
-            if (event.target == document.getElementById('adminModal')) closeAdminModal();
+        function copyNumber() {
+            let text = document.getElementById('displayNumber').innerText;
+            navigator.clipboard.writeText(text);
+            document.getElementById('copyMsg').style.display = 'inline';
+            setTimeout(() => document.getElementById('copyMsg').style.display = 'none', 2000);
         }
+
+        function savePaymentSettings() {
+            let db = getDB();
+            db.config.payment.bkash = document.getElementById('setBkash').value;
+            db.config.payment.nagad = document.getElementById('setNagad').value;
+            db.config.payment.rocket = document.getElementById('setRocket').value;
+            saveDB(db);
+            alert("নাম্বার আপডেট হয়েছে!");
+        }
+
+        // --- HELPER FUNCTIONS ---
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-tab button').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function loadAdminData() {
+            let db = getDB();
+            
+            // Fill Payment Inputs
+            document.getElementById('setBkash').value = db.config.payment.bkash;
+            document.getElementById('setNagad').value = db.config.payment.nagad;
+            document.getElementById('setRocket').value = db.config.payment.rocket;
+
+            // Fill Activity List (Admin View)
+            let actHtml = "";
+            db.activities.forEach(a => {
+                actHtml += `<div style="border-bottom:1px solid #ddd; padding:5px;">
+                    <b>${a.title}</b> <button class="btn-danger" onclick="deleteActivity(${a.id})">Delete</button>
+                </div>`;
+            });
+            document.getElementById('adminActivityList').innerHTML = actHtml;
+
+            // Fill Pending Posts
+            let postHtml = "";
+            db.userPosts.filter(p => p.status === 'pending').forEach(p => {
+                postHtml += `<div style="background:#eee; padding:10px; margin-bottom:5px;">
+                    <b>${p.name}:</b> ${p.content} <br>
+                    <button class="btn-success" onclick="approvePost(${p.id})">Approve</button>
+                    <button class="btn-danger" onclick="deletePost(${p.id})">Delete</button>
+                </div>`;
+            });
+            document.getElementById('pendingPostList').innerHTML = postHtml || "কোন পেন্ডিং পোস্ট নেই।";
+        }
+        
+        function deleteActivity(id) {
+             let db = getDB();
+             db.activities = db.activities.filter(a => a.id !== id);
+             saveDB(db);
+             renderActivities();
+             loadAdminData();
+        }
+
     </script>
 </body>
 </html>
