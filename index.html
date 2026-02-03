@@ -11,13 +11,11 @@
     <style>
         /* --- CSS Variables & Global Styles --- */
         :root {
-            --primary: #0066cc; /* Deep Blue */
-            --secondary: #28a745; /* Green */
-            --accent: #ff9f43; /* Orange for Buttons */
+            --primary: #0066cc;
+            --secondary: #28a745;
             --dark: #2d3436;
             --light: #f8f9fa;
-            --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.9);
+            --glass: rgba(255, 255, 255, 0.95);
             --shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
@@ -40,218 +38,92 @@
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo i { color: var(--secondary); }
-
-        nav ul { display: flex; list-style: none; gap: 25px; align-items: center; }
-        nav a { text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav a { text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; cursor: pointer; }
         nav a:hover { color: var(--primary); }
 
         .btn-donate-nav {
-            background: var(--secondary);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: 0.3s;
+            background: var(--secondary); color: white; padding: 8px 20px; border-radius: 30px; font-weight: 600; transition: 0.3s;
         }
-        .btn-donate-nav:hover { background: #218838; color: white; transform: scale(1.05); }
+        .btn-donate-nav:hover { transform: scale(1.05); }
 
         /* --- Hero Section --- */
         .hero {
-            height: 100vh;
+            height: 90vh;
             background: linear-gradient(rgba(0, 30, 60, 0.7), rgba(0, 30, 60, 0.7)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding: 0 20px;
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; margin-top: 60px;
         }
-
-        .hero-content { animation: fadeInUp 1s ease-out; }
-        
-        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; font-weight: 700; line-height: 1.2; }
-        .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; opacity: 0.9; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; font-weight: 700; }
+        .hero p { font-size: 1.1rem; margin-bottom: 30px; max-width: 600px; margin: auto; opacity: 0.9; }
 
         .btn-donate-hero {
             background: linear-gradient(45deg, var(--secondary), #20bf6b);
-            color: white;
-            padding: 15px 40px;
-            font-size: 1.3rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 700;
-            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.4);
-            transition: 0.3s;
-            animation: pulse 2s infinite;
+            color: white; padding: 15px 40px; font-size: 1.2rem; border: none; border-radius: 50px; cursor: pointer; font-weight: 700;
+            margin-top: 20px; box-shadow: 0 10px 20px rgba(40, 167, 69, 0.4); animation: pulse 2s infinite;
         }
 
-        .btn-donate-hero:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(40, 167, 69, 0.6); }
-
-        /* --- About Section --- */
+        /* --- Content Sections --- */
         .section { padding: 80px 10%; }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 50px; color: var(--primary); font-weight: 700; }
         
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-        
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: white; padding: 30px; border-radius: 15px; text-align: center; box-shadow: var(--shadow); border-bottom: 5px solid var(--primary); }
+        .card i { font-size: 2.5rem; color: var(--secondary); margin-bottom: 20px; }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: 0.3s;
-            border-bottom: 5px solid var(--primary);
-        }
-        .card:hover { transform: translateY(-10px); }
-        .card i { font-size: 3rem; color: var(--secondary); margin-bottom: 20px; }
-        .card h3 { margin-bottom: 15px; color: var(--dark); }
-
-        /* --- Contact Section --- */
-        .contact-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .contact-info, .contact-form { flex: 1; min-width: 300px; }
-        
-        .input-group { margin-bottom: 15px; }
-        .input-group input, .input-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            outline: none;
-            transition: 0.3s;
-        }
-        .input-group input:focus, .input-group textarea:focus { border-color: var(--primary); }
-
-        .btn-submit {
-            background: var(--primary);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
+        /* --- Members Grid --- */
+        .members-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .member-card { background: white; border-radius: 15px; padding: 20px; text-align: center; box-shadow: var(--shadow); transition: 0.3s; position: relative; }
+        .member-img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--primary); object-fit: cover; margin-bottom: 15px; }
+        .member-name { font-size: 1.2rem; font-weight: 700; }
+        .member-role { color: var(--secondary); font-weight: 600; margin-bottom: 10px; }
+        .member-contact { background: #f1f2f6; padding: 5px 10px; border-radius: 20px; display: inline-block; font-size: 0.9rem; }
 
         /* --- Footer --- */
-        footer {
-            background: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-        }
+        footer { background: #1a1a1a; color: white; text-align: center; padding: 30px; margin-top: 50px; }
 
-        /* --- DONATION MODAL (POPUP) --- */
+        /* --- MODAL STYLES (Common for Donate & Admin) --- */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: none; /* Hidden by default */
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            backdrop-filter: blur(5px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); display: none; justify-content: center;
+            align-items: center; z-index: 2000; backdrop-filter: blur(5px);
         }
-
         .modal-box {
-            background: white;
-            width: 90%;
-            max-width: 450px;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            position: relative;
-            animation: slideIn 0.4s ease;
+            background: white; width: 90%; max-width: 500px; padding: 30px;
+            border-radius: 15px; text-align: center; position: relative;
+            max-height: 90vh; overflow-y: auto;
         }
-
-        .close-btn {
-            position: absolute;
-            top: 15px; right: 20px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #888;
-        }
-        .close-btn:hover { color: red; }
-
-        .pay-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888; }
+        
+        /* Donate Modal Specifics */
+        .pay-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
         .pay-btn {
-            padding: 15px;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            cursor: pointer;
-            background: transparent;
-            transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
+            padding: 15px; border: 2px solid #eee; border-radius: 10px; cursor: pointer;
+            background: white; display: flex; flex-direction: column; align-items: center; transition: 0.2s;
         }
+        .pay-btn:active { transform: scale(0.95); background: #e8f5e9; border-color: var(--secondary); }
+        .pay-btn img { height: 40px; }
 
-        .pay-btn:hover { border-color: var(--primary); background: #f0f8ff; }
-        .pay-btn img { height: 40px; object-fit: contain; }
-        .pay-btn span { font-weight: 600; font-size: 0.9rem; }
+        /* Admin Modal Specifics */
+        .admin-input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        .btn-admin { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .btn-delete { background: #ff4757; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
 
-        /* Animations */
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(40, 167, 69, 0); } 100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); } }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            nav ul { display: none; } /* Mobile Menu hidden for simplicity */
-        }
+        @media (max-width: 768px) { .hero h1 { font-size: 2.2rem; } nav ul { display: none; } }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">
-            <i class="fas fa-hands-holding-child"></i> সৃষ্টির সেবা ফাউন্ডেশন 
-        </div>
+        <div class="logo"><i class="fas fa-hands-holding-child"></i> সৃষ্টির সেবা</div>
         <nav>
             <ul>
                 <li><a href="#home">হোম</a></li>
-                <li><a href="#about">আমাদের সম্পর্কে</a></li>
-                <li><a href="#contact">যোগাযোগ</a></li>
-                <li><a href="#" class="btn-donate-nav" onclick="openModal()">দান করুন</a></li>
+                <li><a href="#members">সদস্যবৃন্দ</a></li>
+                <li><a onclick="openAdminModal()">এডমিন</a></li> <li><a class="btn-donate-nav" onclick="openDonateModal()">দান করুন</a></li>
             </ul>
         </nav>
     </header>
@@ -259,162 +131,207 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>মানুষের সেবাই আমাদের ব্রত</h1>
-            <p>আপনার একটি ছোট অনুদান একজন অসহায় মানুষের জীবনে হাসি ফোটাতে পারে। আমাদের সাথে যোগ দিন এবং মানবতার সেবায় এগিয়ে আসুন।</p>
-            <button class="btn-donate-hero" onclick="openModal()">
-                <i class="fas fa-heart"></i> এখানে ক্লিক করে দান করুন
+            <p>আপনার একটি ছোট অনুদান একজন অসহায় মানুষের জীবনে হাসি ফোটাতে পারে।</p>
+            <button class="btn-donate-hero" onclick="openDonateModal()">
+                <i class="fas fa-heart"></i> দান করতে ক্লিক করুন
             </button>
         </div>
     </section>
 
     <section class="section" id="about">
-        <h2 class="section-title">আমরা কি করি?</h2>
+        <h2 class="section-title">আমাদের কার্যক্রম</h2>
         <div class="about-grid">
-            <div class="card">
-                <i class="fas fa-utensils"></i>
-                <h3>খাদ্য বিতরণ</h3>
-                <p>আমরা দরিদ্র ও পথশিশুদের মাঝে পুষ্টিকর খাবার বিতরণ করি।</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-book-reader"></i>
-                <h3>শিক্ষা সহায়তা</h3>
-                <p>দরিদ্র মেধাবী শিক্ষার্থীদের শিক্ষা সামগ্রী ও বৃত্তি প্রদান করা হয়।</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-clinic-medical"></i>
-                <h3>চিকিৎসা সেবা</h3>
-                <p>বিনা মূল্যে চিকিৎসা ক্যাম্প এবং ঔষধ সরবরাহ করা হয়।</p>
-            </div>
+            <div class="card"><i class="fas fa-utensils"></i><h3>খাদ্য বিতরণ</h3><p>দরিদ্রদের মাঝে খাবার বিতরণ।</p></div>
+            <div class="card"><i class="fas fa-book-reader"></i><h3>শিক্ষা</h3><p>দরিদ্র শিক্ষার্থীদের শিক্ষা সামগ্রী প্রদান।</p></div>
+            <div class="card"><i class="fas fa-clinic-medical"></i><h3>চিকিৎসা</h3><p>বিনা মূল্যে চিকিৎসা সেবা।</p></div>
         </div>
     </section>
 
-    <section class="section" style="background: #eef2f3;" id="contact">
-        <h2 class="section-title">যোগাযোগ করুন</h2>
-        <div class="contact-container">
-            <div class="contact-info">
-                <h3>আমাদের ঠিকানা</h3>
-                <p><br><strong>সৃষ্টির সেবা ফাউন্ডেশন</strong><br>কাশিমনগর,মনিরামপুর,যশোর,খুলনা বাংলাদেশ।<br><br>ইমেইল: shristirsheba.org@gmail.com<br>ফোন: +880 1793688434</p>
+    <section class="section" id="members" style="background: #eef2f3;">
+        <h2 class="section-title">ফাউন্ডার এবং সদস্যবৃন্দ</h2>
+        <div class="members-grid" id="publicMembersList">
             </div>
-            <div class="contact-form">
-                <div class="input-group">
-                    <input type="text" placeholder="আপনার নাম">
-                </div>
-                <div class="input-group">
-                    <input type="email" placeholder="আপনার ইমেইল">
-                </div>
-                <div class="input-group">
-                    <textarea rows="4" placeholder="আপনার বার্তা..."></textarea>
-                </div>
-                <button class="btn-submit">বার্তা পাঠান</button>
-            </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">যোগাযোগ</h2>
+        <div style="text-align: center;">
+            <p>ইমেইল: info@shristirsheba.org | ফোন: +880 1XXX-XXXXXX</p>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; ২০২৬ সৃষ্টির সেবা ফাউন্ডেশন | সর্বস্বত্ব সংরক্ষিত</p>
-    </footer>
+    <footer><p>&copy; ২০২৬ শৃষ্টির সেবা ফাউন্ডেশন</p></footer>
 
     <div class="modal-overlay" id="donateModal">
         <div class="modal-box">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 style="color: var(--primary); margin-bottom: 10px;">সাহায্যের হাত বাড়িয়ে দিন</h2>
-            <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">আপনার পছন্দের মাধ্যম নির্বাচন করুন</p>
+            <span class="close-btn" onclick="closeDonateModal()">&times;</span>
+            <h2 style="color: var(--secondary);">সাহায্য পাঠান</h2>
+            <p style="margin-bottom: 15px; color: #666;">নিচের যে কোনো আইকনে ক্লিক করলে নাম্বার কপি হয়ে যাবে</p>
             
-            <div class="input-group">
-                <input type="number" placeholder="টাকার পরিমাণ লিখুন (যেমন: ৫০০)" style="text-align: center; font-size: 1.1rem;">
+            <div class="pay-options">
+                <button class="pay-btn" onclick="copyNumber('017XXXXXXXX', 'বিকাশ')">
+                    <img src="https://freelogopng.com/images/all_img/1656235199bkash-logo-transparent.png" alt="Bkash">
+                    <span>বিকাশ (পার্সোনাল)</span>
+                </button>
+                <button class="pay-btn" onclick="copyNumber('018XXXXXXXX', 'নগদ')">
+                    <img src="https://freelogopng.com/images/all_img/1679248787nagad-logo.png" alt="Nagad">
+                    <span>নগদ (পার্সোনাল)</span>
+                </button>
+            </div>
+            <p id="copyMsg" style="margin-top: 15px; color: var(--secondary); font-weight: bold; display:none;">নাম্বার কপি হয়েছে!</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="adminModal">
+        <div class="modal-box" style="max-width: 600px;">
+            <span class="close-btn" onclick="closeAdminModal()">&times;</span>
+            
+            <div id="admin-login-view">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">এডমিন লগইন</h2>
+                <input type="text" id="adminUser" class="admin-input" placeholder="ইউজারনেম (mamun4798)">
+                <input type="password" id="adminPass" class="admin-input" placeholder="পাসওয়ার্ড (244505@#)">
+                <button class="btn-admin" onclick="verifyAdmin()">লগইন</button>
             </div>
 
-            <div class="pay-options">
-                <button class="pay-btn" onclick="alert('বিকাশ পেমেন্ট গেটওয়ে লোড হচ্ছে...')">
-                    <img src="https://freelogopng.com/images/all_img/1656235199bkash-logo-transparent.png" alt="Bkash">
-                    <span>বিকাশ</span>
-                </button>
-                <button class="pay-btn" onclick="alert('নগদ পেমেন্ট গেটওয়ে লোড হচ্ছে...')">
-                    <img src="https://freelogopng.com/images/all_img/1679248787nagad-logo.png" alt="Nagad">
-                    <span>নগদ</span>
-                </button>
-                <button class="pay-btn" onclick="alert('রকেট পেমেন্ট গেটওয়ে লোড হচ্ছে...')">
-                    <img src="https://seeklogo.com/images/D/dutch-bangla-rocket-logo-B4D1CC458D-seeklogo.com.png" alt="Rocket">
-                    <span>রকেট</span>
-                </button>
-                <button class="pay-btn" onclick="alert('কার্ড পেমেন্ট গেটওয়ে লোড হচ্ছে...')">
-                    <i class="fas fa-credit-card" style="font-size: 2rem; color: var(--primary);"></i>
-                    <span>কার্ড</span>
-                </button>
+            <div id="admin-dashboard-view" style="display: none;">
+                <h2 style="color: var(--primary); margin-bottom: 15px;">এডমিন ড্যাশবোর্ড</h2>
+                
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="margin-bottom: 10px;">নতুন মেম্বার যুক্ত করুন</h4>
+                    <input type="text" id="mName" class="admin-input" placeholder="নাম">
+                    <input type="text" id="mRole" class="admin-input" placeholder="পদবী">
+                    <input type="text" id="mContact" class="admin-input" placeholder="মোবাইল">
+                    <input type="file" id="mPhoto" class="admin-input" accept="image/*">
+                    <button class="btn-admin" onclick="addMember()">সেভ করুন</button>
+                </div>
+
+                <h4 style="margin-bottom: 10px;">মেম্বার তালিকা</h4>
+                <div id="adminMembersList" style="text-align: left; max-height: 200px; overflow-y: scroll;">
+                    </div>
+
+                <button class="btn-admin" style="background: #555; margin-top: 20px;" onclick="logoutAdmin()">লগআউট</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Modal Logic
-        const modal = document.getElementById('donateModal');
+        // --- 1. DONATE LOGIC ---
+        function openDonateModal() { document.getElementById('donateModal').style.display = 'flex'; }
+        function closeDonateModal() { document.getElementById('donateModal').style.display = 'none'; document.getElementById('copyMsg').style.display='none'; }
 
-        function openModal() {
-            modal.style.display = 'flex';
+        function copyNumber(number, method) {
+            navigator.clipboard.writeText(number);
+            const msg = document.getElementById('copyMsg');
+            msg.innerText = `${method} নাম্বার (${number}) কপি হয়েছে!`;
+            msg.style.display = 'block';
+            msg.style.color = '#28a745';
         }
 
-        function closeModal() {
-            modal.style.display = 'none';
+        // --- 2. ADMIN LOGIC ---
+        function openAdminModal() { document.getElementById('adminModal').style.display = 'flex'; }
+        function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
+
+        // নির্দিষ্ট ক্রেডেনশিয়াল চেক
+        function verifyAdmin() {
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+
+            // আপনার দেওয়া ক্রেডেনশিয়াল
+            if (user === "mamun4798" && pass === "244505@#") {
+                document.getElementById('admin-login-view').style.display = "none";
+                document.getElementById('admin-dashboard-view').style.display = "block";
+                renderMembers(); // Load list
+            } else {
+                alert("ভুল ইউজারনেম বা পাসওয়ার্ড!");
+            }
         }
 
-        // Close modal if clicked outside the box
+        function logoutAdmin() {
+            document.getElementById('admin-login-view').style.display = "block";
+            document.getElementById('admin-dashboard-view').style.display = "none";
+            document.getElementById('adminUser').value = "";
+            document.getElementById('adminPass').value = "";
+        }
+
+        // --- 3. MEMBER MANAGEMENT (LocalStorage) ---
+        document.addEventListener("DOMContentLoaded", renderMembers);
+
+        function addMember() {
+            const name = document.getElementById('mName').value;
+            const role = document.getElementById('mRole').value;
+            const contact = document.getElementById('mContact').value;
+            const photoInput = document.getElementById('mPhoto');
+
+            if (!name || !role) { alert("নাম ও পদবী দিতে হবে!"); return; }
+
+            const reader = new FileReader();
+            if (photoInput.files && photoInput.files[0]) {
+                if (photoInput.files[0].size > 500000) { alert("ছবির সাইজ ৫০০KB এর কম হতে হবে!"); return; }
+                reader.readAsDataURL(photoInput.files[0]);
+                reader.onload = function (e) { saveToStorage(name, role, contact, e.target.result); };
+            } else {
+                saveToStorage(name, role, contact, "https://cdn-icons-png.flaticon.com/512/3135/3135715.png");
+            }
+        }
+
+        function saveToStorage(name, role, contact, imageSrc) {
+            let members = JSON.parse(localStorage.getItem('ssf_members')) || [];
+            members.push({ id: Date.now(), name, role, contact, image: imageSrc });
+            
+            try {
+                localStorage.setItem('ssf_members', JSON.stringify(members));
+                alert("মেম্বার যুক্ত হয়েছে!");
+                // Clear inputs
+                document.getElementById('mName').value = "";
+                document.getElementById('mRole').value = "";
+                document.getElementById('mContact').value = "";
+                renderMembers();
+            } catch (e) { alert("মেমোরি ফুল! কিছু মেম্বার ডিলিট করুন।"); }
+        }
+
+        function renderMembers() {
+            let members = JSON.parse(localStorage.getItem('ssf_members')) || [];
+            const publicList = document.getElementById('publicMembersList');
+            const adminList = document.getElementById('adminMembersList');
+            
+            publicList.innerHTML = "";
+            adminList.innerHTML = "";
+
+            if (members.length === 0) publicList.innerHTML = "<p>কোন সদস্য নেই।</p>";
+
+            members.forEach(m => {
+                // Public View
+                publicList.innerHTML += `
+                    <div class="member-card">
+                        <img src="${m.image}" class="member-img">
+                        <div class="member-name">${m.name}</div>
+                        <div class="member-role">${m.role}</div>
+                        <div class="member-contact">📞 ${m.contact}</div>
+                    </div>`;
+
+                // Admin View (Mini List)
+                adminList.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:white; padding:10px; margin-bottom:10px; border-bottom:1px solid #ddd;">
+                        <div><strong>${m.name}</strong> - ${m.role}</div>
+                        <button onclick="deleteMember(${m.id})" style="background:red; color:white; border:none; padding:5px; border-radius:3px; cursor:pointer;">X</button>
+                    </div>`;
+            });
+        }
+
+        function deleteMember(id) {
+            if(confirm("ডিলিট করবেন?")) {
+                let members = JSON.parse(localStorage.getItem('ssf_members')) || [];
+                members = members.filter(m => m.id !== id);
+                localStorage.setItem('ssf_members', JSON.stringify(members));
+                renderMembers();
+            }
+        }
+
+        // Close modal on outside click
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+            if (event.target == document.getElementById('donateModal')) closeDonateModal();
+            if (event.target == document.getElementById('adminModal')) closeAdminModal();
         }
-    
- <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সৃষ্টির সেবা ফাউন্ডেশন</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        
-        .video-wrapper {
-            background: #eef2f3;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .video-box {
-            position: relative;
-            width: 100%;
-            max-width: 800px; /* ভিডিওর সাইজ */
-            margin: 0 auto;
-            border: 5px solid #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        /* রেসপন্সিভ করার জন্য */
-        .video-box iframe {
-            width: 100%;
-            height: 450px; /* কম্পিউটারের জন্য উচ্চতা */
-        }
-
-        @media screen and (max-width: 600px) {
-            .video-box iframe {
-                height: 250px; /* মোবাইলের জন্য উচ্চতা */
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="video-wrapper">
-        <h2 style="color: #2c3e50;">আমাদের কার্যক্রম</h2>
-        
-        <div class="video-box">
-            <iframe 
-                width="100%" 
-                src="https://www.youtube.com/embed/vhhXUPEo81k?si=h8xzZf7G7Oe-2Kf_" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen>
-                    </script>
-            </iframe>
-        </div>
-    </div>
+    </script>
 </body>
 </html>
